@@ -22,13 +22,13 @@ if(process.env.NODE_ENV === 'development') {
 };
 
 // Route files
-const shorten = require('./routes/urls');
+const shortener = require('./routes/urls');
 
 // ROUTES
-app.use('/api/v1/short', shorten);
+app.use('/api/v1/shortener', shortener);
 
 // Error handler
-//app.use(error.js);
+app.use(errorHandler);
 
 // Listen and handling unhandled promise rejections
 const port = process.env.PORT || 5000;
@@ -37,7 +37,7 @@ const server = app.listen(port, () => {
 });
 
 process.on('unhandledRejection', (err, promise) => {
-	console.log(`Error: ${err.message}`)
+	console.log(`Error: ${err.stack}`)
 	server.close(() => process.exit(1));
 });
 

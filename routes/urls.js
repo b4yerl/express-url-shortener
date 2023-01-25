@@ -1,7 +1,10 @@
 const express = require('express');
+const { urlShortener } = require('../controllers/urls')
 
 const router = express.Router();
 
-router.route('/').get((req, res) => res.status(200).json({ hello: 'world' }));
+router.route('/')
+      .post(urlShortener);
+
 
 module.exports = router;

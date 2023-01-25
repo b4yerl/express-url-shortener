@@ -1,21 +1,28 @@
 const mongoose = require('mongoose');
-const generateShortUrl = require('../middleware/shortener');
+const generateShortUrl = require('../middleware/randomBytes');
 
 const UrlSchema = new mongoose.Schema({
-	originalUrl: { type: String, required: true },
-  shortUrl: { type: String, unique: true },
-	clicks: { type: Number, dafault: 0 }
+	originalUrl: { 
+    type: String,
+    required: true,
+    match: [
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+      'Please use a valid URL with HTTP or HTTPS'
+    ] 
+  },
+  shortUrl: {
+    type: String,
+    unique: true
+  },
+	clicks: {
+    type: Number,
+    default: 0
+  }
 });
 
-UrlSchema.pre('save', async function(next) {
-  while(true) {
-    this.shortUrl = generateShortUrl();
-    const searchResult = await Url.findOne({ shortUrl: this.shortUrl });
-    if(!searchResult) {
-      break;
-    }
-  }
+UrlSchema.pre('save', function(next) {
+  this.shortUrl = generateShortUrl();
   next();
-})
-
+});
+ 
 module.exports = mongoose.model('Url', UrlSchema);
