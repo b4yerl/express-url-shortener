@@ -1,6 +1,7 @@
 const Url = require('../models/Url')
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/ErrorResponse');
+
 // @desc Shortens a single URL
 // @routes POST /api/v1/shortener
 // @access Public

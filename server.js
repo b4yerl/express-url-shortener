@@ -23,9 +23,10 @@ if(process.env.NODE_ENV === 'development') {
 
 // Route files
 const shortener = require('./routes/urls');
-
+const analytics = require('./routes/analytics')
 // ROUTES
 app.use('/api/v1/shortener', shortener);
+app.use('/api/v1/analytics', analytics);
 
 // Error handler
 app.use(errorHandler);
