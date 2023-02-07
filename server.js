@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const colors = require('colors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error.js');
@@ -23,9 +24,10 @@ if(process.env.NODE_ENV === 'development') {
 
 // Route files
 const shortener = require('./routes/urls');
-
+const clicks = require('./routes/clicks')
 // ROUTES
 app.use('/api/v1/shortener', shortener);
+app.use('/api/v1/clicks', clicks);
 
 // Error handler
 app.use(errorHandler);
@@ -33,7 +35,7 @@ app.use(errorHandler);
 // Listen and handling unhandled promise rejections
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
-	console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`);
+	console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`.green.inverse);
 });
 
 process.on('unhandledRejection', (err, promise) => {
