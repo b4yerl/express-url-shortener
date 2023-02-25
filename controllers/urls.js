@@ -27,3 +27,16 @@ exports.shortenUrl = asyncHandler (async (req, res, next) => {
   
   res.status(201).json({ success: true, originalUrl: newItem.original_url, shortUrl: fullShortUrl })
 });
+
+// @desc Redirects the user and updates the clicks counter
+// @routes GET /api/shortener/:shortUrl
+// @access Public
+exports.redirectUrl = asyncHandler( async (req, res, next) => {
+  console.log(req.params.shortUrl)
+  const document = await prisma.url.update({
+    where: { short_url: req.params.shortUrl },
+    data: { clicks: { increment: 1 } }
+  });
+  
+  res.status(301).redirect(document.original_url);
+});
