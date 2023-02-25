@@ -2,14 +2,10 @@ const express = require('express');
 const morgan = require('morgan');
 const colors = require('colors');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error.js');
 
 // Load .env files
 dotenv.config({ path: './config/config.env' });
-
-// Connect to MongoDB
-connectDB();
 
 // Start express app
 const app = express();
@@ -26,8 +22,8 @@ if(process.env.NODE_ENV === 'development') {
 const shortener = require('./routes/urls');
 const clicks = require('./routes/clicks')
 // ROUTES
-app.use('/api/v1/shortener', shortener);
-app.use('/api/v1/clicks', clicks);
+app.use('/api/shortener', shortener);
+app.use('/api/clicks', clicks);
 
 // Error handler
 app.use(errorHandler);
