@@ -1,13 +1,12 @@
+const { Prisma } = require('@prisma/client');
 const ErrorResponse = require('../utils/ErrorResponse');
 
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
   error.message = err.message;
 
-  console.log(err.stack);
-
-  // Duplicate key
-  if(err.code === 11000) {
+  // Validation Error
+  if(err instanceof Prisma.PrismaClientValidationError) {
     const message = 'An error ocorred while shortening your URL, please try again'
     error = new ErrorResponse(message, 500);
     res.status(error.statusCode).json({ success: false, data: message })
