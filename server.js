@@ -4,6 +4,11 @@ const colors = require('colors');
 const dotenv = require('dotenv');
 const errorHandler = require('./middleware/error.js');
 
+// Importing security middleware
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
+const xss = require('xss-clean');
+
 // Load .env files
 dotenv.config({ path: './config/config.env' });
 
@@ -12,6 +17,21 @@ const app = express();
 
 // Setup body parser
 app.use(express.json());
+
+// Preventing HTTP Parameter Pollution
+app.use(hpp());
+
+// Preventing XSS attacks
+app.use(xss());
+
+// Limiting users to 100 requests per 10 minutes
+const tenMinutes = 10 * 60 * 1000
+const limiter = rateLimit({
+  windowMs: tenMinutes,
+  max: 100
+});
+
+app.use(limiter);
 
 // morgan logger setup
 if(process.env.NODE_ENV === 'development') {
