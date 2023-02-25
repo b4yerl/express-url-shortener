@@ -1,41 +1,33 @@
-# Project: Express Url Shortener
-This project was developed to practice my Node.js and Express.js skills.
+# Express URL Shortener
 
-The application is capable of shortening a given URL that can be accessed later while the number of visitors is beign counted.
-# 📁 Collection: Shortener 
+Project developed at first to put into test my initial backend development skills. After the initial version of it using MongoDB, I decided to swap it to a relational database, so for now it persists data in a MySQL DB using Prisma as ORM.
 
+## 🙂 Getting Started
 
-## End-point: Shorten URL
-Send JSON payload with the full URL to receive the shortened version of it. The URL must have either "http" or "https" protocol.
-### Method: POST
->```
->{{URL}}/api/v1/shortener
->```
-### Headers
+1. Clone this repository.
+2. Run `npm install`.
+3. Rename the `/config/.env` to `/config/config.env`.
+4. Set the `MYSQL_URI` environment variable to your MySQL URI.
+5. Run `npm start`.
 
-|Content-Type|Value|
-|---|---|
-|Content-Type|application/json|
+## 📖 API Documentation
 
+Please refer to the `/docs` folder for API documentation, including routes and request examples.
 
-### Body (**raw**)
+## 📌 Requirements
 
-```json
-{
-    "url": "http://www.example.com"
-}
-```
+1. Node.js
+2. MySQL
 
+## 💾 Technologies Used
 
-⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+Some of the technologies used throughout the code includes:
+- Javascript
+- Node.js
+- Express.js
+- Prisma
+- MySQL
 
-## End-point: Redirects to original URL
-Redirects the user to the original URL and increments by 1 the "clicks" counter in the database.
-### Method: GET
->```
->{{URL}}/api/v1/shortener/:shortId
->```
+## 📜 Licence
 
-⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
-_________________________________________________
-Powered By: [postman-to-markdown](https://github.com/bautistaj/postman-to-markdown/)
+This project is under MIT license - see the [LICENSE](./LICENSE) file for details.
